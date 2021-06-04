@@ -1,0 +1,34 @@
+<div class="carousel" (mouseenter)="showControls()"  (mouseleave)="hideControls()">
+  <div class="header">
+    <div>
+      <div class="icon">
+        <mat-icon aria-hidden="false" aria-label="Icon">{{icon}}</mat-icon>
+      </div>
+    </div>
+    <div>
+      <h2 class="title">
+        {{title}} <mat-icon aria-hidden="false" aria-label="Icon">chevron_right</mat-icon>
+      </h2>
+      <p class="subtitle">
+        {{subtitle}}
+      </p>
+    </div>
+  </div>
+  <div class="cards-container" #scrollContainer>
+    <div class="cards-scroll" [style.left]="scrollPosition+'px'" #scrollInner>
+      <app-carousel-card *ngFor="let card of cards" [card]="card"></app-carousel-card>
+    </div>
+    <a [ngClass]="{'previous': true, 'hidden': !isLeftControlVisible}"
+       (click)="scrollLeft()"
+       href="javascript:"
+       title="Previous cards">
+      <mat-icon aria-hidden="false" aria-label="Icon">chevron_left</mat-icon>
+    </a>
+    <a [ngClass]="{'next': true, 'hidden': !isRightControlVisible}"
+       (click)="scrollRight()"
+       href="javascript:"
+       title="Next cards">
+      <mat-icon aria-hidden="false" aria-label="Icon">chevron_right</mat-icon>
+    </a>
+  </div>
+</div>

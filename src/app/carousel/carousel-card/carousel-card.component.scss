@@ -1,0 +1,72 @@
+$titleColor: #2770a0;
+$subtitleColor: #a0a0a0;
+
+  .card {
+    flex-shrink: 0;
+    display: inline-block;
+    width: 200px;
+    height: 240px;
+    margin: 0 10px;
+    background-color: #fff;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+
+    > .img {
+      display: flex;
+      height: 100px;
+      justify-content: space-between;
+      align-items: flex-end;
+      background-color: #ddd;
+      background-size: cover;
+
+      &.placeholder {
+        background: linear-gradient(90deg, #ddd 8%, #eee 25%, #ddd 50%);
+        animation: backgroundPulse forwards 7s linear infinite;
+      }
+
+      > .type {
+        display: inline-block;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        margin: 0;
+        padding: 1px 5px;
+        font-size: 10px;
+        font-weight: 700;
+      }
+
+      > .duration {
+        display: inline-block;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        margin: 0;
+        padding: 1px 5px;
+        font-size: 10px;
+        font-weight: 700;
+      }
+    }
+
+    > .caption {
+      height: 140px;
+      padding: 14px;
+      color: $titleColor;
+      font-size: 12px;
+      text-transform: capitalize;
+
+      > .placeholder {
+        display: inline-block;
+        background: #ddd linear-gradient(90deg, #ddd 8%, #eee 25%, #ddd 50%);
+        height: 14px;
+        margin: 4px;
+        animation: backgroundPulse forwards 7s linear infinite;
+      }
+
+      @keyframes backgroundPulse {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 100em 0;
+        }
+      }
+    }
+  }

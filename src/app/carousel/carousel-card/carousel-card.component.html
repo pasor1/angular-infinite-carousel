@@ -1,0 +1,11 @@
+<div>
+  <div class="card">
+    <div class="img" [style.backgroundImage]="'url(' + card.image + ')'">
+      <div class="type">{{card.type | toReadableContentType}}</div>
+      <div class="duration">{{card.duration | toReadableDuration}}</div>
+    </div>
+    <div class="caption">
+      {{card.title}}
+    </div>
+  </div>
+</div>
