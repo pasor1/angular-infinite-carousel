@@ -1,69 +1,14 @@
-import {Component, ViewChild, ElementRef} from '@angular/core';
+import {Component, ViewChild, ElementRef, OnInit} from '@angular/core';
+import {CarouselService} from './carousel.service';
+import {Card} from '../shared/card.interface';
 
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss']
 })
-export class CarouselComponent {
-  cards = [
-    {
-      image: 'https://picsum.photos/seed/1/200/100',
-      type: 'video',
-      duration: 76,
-      title: 'Welcome to effective time management',
-      cardinality: 'single',
-    },
-    {
-      image: 'https://picsum.photos/seed/2/200/100',
-      type: 'elearning',
-      duration: 2520,
-      title: 'Choosing the best audio player software for your computer',
-      cardinality: 'single',
-    },
-    {
-      image: 'https://picsum.photos/seed/3/200/100',
-      type: 'learning_plan',
-      duration: 4800,
-      title: 'The small change that creates massive results in your life',
-      cardinality: 'collection',
-    },
-    {
-      image: 'https://picsum.photos/seed/4/200/100',
-      type: 'playlist',
-      duration: 4800,
-      title: 'Enhence your brand potential with giant advertising blimps',
-      cardinality: 'collection',
-    },
-    {
-      image: 'https://picsum.photos/seed/5/200/100',
-      type: 'elearning',
-      duration: 3600,
-      title: 'How to get write better advertising copy...',
-      cardinality: 'single',
-    },
-    {
-      image: 'https://picsum.photos/seed/6/200/100',
-      type: 'elearning',
-      duration: 3600,
-      title: 'title',
-      cardinality: 'single',
-    },
-    {
-      image: 'https://picsum.photos/seed/1/200/100',
-      type: 'video',
-      duration: 76,
-      title: 'Welcome to effective time management',
-      cardinality: 'single',
-    },
-    {
-      image: 'https://picsum.photos/seed/2/200/100',
-      type: 'elearning',
-      duration: 2520,
-      title: 'Choosing the best audio player software for your computer',
-      cardinality: 'single',
-    }
-  ];
+export class CarouselComponent implements OnInit {
+  cards: Card[] = [];
   icon = 'tungsten';
   title = 'Fresh and just uploaded content';
   subtitle = 'Lorem ipsum sit amet, adipiscing elit. Cras dapibus vulputate diam eu pretium.';
@@ -73,6 +18,17 @@ export class CarouselComponent {
   scrollStepDistance = 220;
   @ViewChild('scrollContainer') scrollContainer: ElementRef;
   @ViewChild('scrollInner') scrollInner: ElementRef;
+
+  constructor(private carouselService: CarouselService) {
+  }
+
+  ngOnInit(): void {
+    this.carouselService.getCards().then(
+      response => {
+        this.cards = [...response];
+      }
+    );
+  }
 
   isStartPosition(position): boolean {
     return position >= 0;
@@ -116,7 +72,11 @@ export class CarouselComponent {
       this.isLeftControlVisible = true;
     }
     if (this.isEndPosition(nextPosition)) {
-      this.cards = [...this.cards, ...this.cards];
+      this.carouselService.getCards().then(
+        response => {
+          this.cards.push(...response);
+        }
+      );
       // this.isRightControlVisible = false;
     }
     if (!this.isEndPosition(this.scrollPosition)) {
