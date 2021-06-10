@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Card} from '../shared/card.interface';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,15 @@ export class CarouselService {
     }
   ];
 
+  getCardsObservable: Observable<Card[]> = new Observable(
+    (observer) => {
+      setTimeout(() => {
+        observer.next(this.cards);
+        observer.complete();
+      }, 1500);
+    }
+  );
+
   getCards(): Promise<Card[]> {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -63,5 +73,6 @@ export class CarouselService {
       }, 1500);
     });
   }
+
 
 }

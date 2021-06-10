@@ -23,11 +23,9 @@ export class CarouselComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.carouselService.getCards().then(
-      response => {
-        this.cards = [...response];
-      }
-    );
+    this.carouselService.getCardsObservable.subscribe((params) => {
+      this.cards.push(...params);
+    });
   }
 
   isStartPosition(position): boolean {
@@ -72,12 +70,9 @@ export class CarouselComponent implements OnInit {
       this.isLeftControlVisible = true;
     }
     if (this.isEndPosition(nextPosition)) {
-      this.carouselService.getCards().then(
-        response => {
-          this.cards.push(...response);
-        }
-      );
-      // this.isRightControlVisible = false;
+      this.carouselService.getCardsObservable.subscribe((params) => {
+        this.cards.push(...params);
+      });
     }
     if (!this.isEndPosition(this.scrollPosition)) {
       this.scrollPosition = nextPosition;
